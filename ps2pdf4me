@@ -1,0 +1,90 @@
+#!/bin/bash
+#
+# Zepu zhang, Oct 2006.
+
+# For an A4-formatted postscript file, there's a way to shift it so
+# that it prints OK on letter paper:
+#   pstops '(0cm,-2cm)' in.ps out.ps
+# This might be useful if I want to change the document to letter paper.
+
+# If one has a PDF containing figures with missing fonts,
+# a possible rescue is to convert it to PS using
+#    pdftops
+# and then back to PDF using this script.
+
+if (( $# == 0 )); then
+cat <<HELP
+Convert a PS document to a PDF document by calling ps2pdf with
+appropriate options for optimum quality.
+In particular, all fonts are embedded.
+
+Usage: $(basename $0) foo.ps [foo1.ps ...]
+
+Output is foo.pdf, foo1.pdf, etc.
+HELP
+exit 1
+fi
+
+
+for fin in $*; do
+    if [[ "$fin" == *.ps ]]; then
+        fout=${fin%ps}pdf
+
+        # Extract papersize info from the PS file and pass it to ps2pdf
+        # using the option '-sPAPERSIZE'.
+        # Since this info is in the PS file,
+        # ps2pdf should have done this automatically.
+        # Unfortunately it doesn't do it.
+        # Instead, ps2pdf sticks with a default output paper size,
+        # which appears to be 'letter'.
+        #
+        papersize="$(sed -n '
+            /[Dd]ocument[Pp]aper[Ss]ize/{
+            p
+            q
+            }' "$fin")"
+        if [ "$papersize" ]; then
+            papersize=$(echo ${papersize#* } |tr 'A-Z' 'a-z')
+            papersize="-sPAPERSIZE=$papersize"
+        fi
+
+        echo converting  "$fin"  to "$fout" using ps2pdf
+
+        ps2pdf \
+            $papersize \
+            -sDEVICE=pdfwrite \
+            -dPDFSETTINGS=/prepress \
+            -dCompressPages=true \
+            -dUseFlateCompression=false \
+            -dDetectBlends=true \
+            -dOptimize=true \
+            -dMaxSubsetPct=100 \
+            -dCompatibilityLevel=1.3 \
+            -dSubsetFonts=true \
+            -dEmbedAllFonts=true \
+            -dAutoFilterColorImages=false \
+            -dAntiAliasColorImages=false \
+            -dColorImageFilter=/FlateEncode \
+            -dDownsampleColorImages=true \
+            -dColorImageResolution=1200 \
+            -dColorImageDownsampleType=/Average \
+            -dColorImageDownsampleThreshold=1.50000 \
+            -dAutoFilterGrayImages=false \
+            -dAntiAliasGrayImages=false \
+            -dGrayImageFilter=/FlateEncode \
+            -dDownsampleGrayImages=true \
+            -dGrayImageResolution=1200 \
+            -dGrayImageDownsampleType=/Average \
+            -dGrayImageDownsampleThreshold=1.50000 \
+            -dMonoImageFilter=/FlateEncode \
+            -dDownsampleMonoImages=true \
+            -dMonoImageResolution=1200 \
+            -dMonoImageDownsampleType=/Average \
+            -dAutoFilterMonoImages=false \
+            -dAntiAliasMonoImages=false \
+            -dMonoImageDownsampleThreshold=1.50000 \
+            -dAutoRotatePages=/None \
+            "$fin" "$fout"
+    fi
+done
+

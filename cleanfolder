@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Clean some garbage produced by Mac OS X.
+
+if (( $# > 0)); then
+    folders="$*"
+else
+    folders="$HOME/research $HOME/references $HOME/usr $HOME/data"
+fi
+
+for folder in $folders
+do
+    find $folder -name .DS_Store -exec rm {} \;
+    find $folder -name ._.DS_Store -exec rm {} \;
+    find $folder -name Thumbs.db -exec rm {} \;
+    find $folder -name .localized -exec rm {} \;
+done

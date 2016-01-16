@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Print source code
+
+a2ps -f8 $*

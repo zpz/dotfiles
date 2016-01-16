@@ -1,0 +1,182 @@
+#!/bin/bash
+#
+# Zepu Zhang, September 2006.
+
+if (( $# < 1 )); then
+cat <<EOF
+Usage: $(basename $0) foo.xxx ...
+
+Print out the structure (TOC) of one or more documents of
+selected types, recognized based on the file name suffix.
+EOF
+exit 1
+fi
+
+
+BIBAWK='
+function trimfield(field) {
+    field = substr(field, RSTART + RLENGTH)
+    sub(/,* *$/, "", field)
+    sub(/^ */, "", field)
+
+    if (sub(/^"/, "", field)) {
+        if (sub(/"$/, "", field) == 0) {
+            field = field "..."
+        }
+    } else if (sub(/^{/, "", field)) {
+        if (sub(/}$/, "", field) == 0) {
+            field = field "..."
+        }
+    }
+
+    if (field !~ /\\/) gsub(/[}{]/, "", field)
+        # Remove grouping symbols
+
+    return field
+}
+
+function trimauthor(authors) {
+
+    tail = ""
+    if (sub(/\.\.\.$/, "", authors)) tail = "..."
+    if (sub(/ and *$/, "", authors)) tail = "..."
+
+    n = split(authors, arr, " and ")
+    if (n > 1) {
+        authors = arr[1] "@@@" arr[2]
+        tail = "..."
+    }
+
+    sub(/ *$/, "", authors)
+
+    gsub(/\.[A-Z]\. /, ". ", authors)
+    gsub(/[A-Z]\. /, " ", authors)
+        # Remove initials. This is perhaps not prudent enough.
+    gsub(/[A-Z][a-zA-Z]* /, " ", authors)
+        # Remove first names.
+
+    sub(/ *@@@ */, " + ", authors)
+    gsub(/ +/, " ", authors)
+    sub(/^ /, "", authors)
+    sub(/ $/, "", authors)
+
+    return authors tail
+}
+
+
+BEGIN { RS =""; FS = "\n"}
+
+# for each record
+{
+    n = split($1, arr, "{")
+    if (n != 2) next
+
+    type = tolower(substr(arr[1], 2))
+    sub(/[@ ]/, "", type)
+    if (tolower(type) ~ /preamble|string|comment/) next
+
+    key = arr[2]
+    sub(/[, ]/, "", key)
+
+    for (i = 2; i <= NF; i++) {
+        if ( match(tolower($i), /^ *title *= */) ) {
+           title = trimfield($i)
+        } # else if ( match(tolower($i), /^ *author *= */) ) {
+        #  author = trimauthor(trimfield($i))
+        #}
+    }
+
+    if (tolower(type) == "article") type = ""
+    else type = " (" type ")"
+
+    printf("%-24s",  key)
+    #printf("%-24s", " " author ",")
+    print " " title type
+}
+'
+
+
+for file in $*
+do
+    case "${file##*.}" in
+    tex)
+        # LaTeX source text:
+        # Print
+        #   document title
+        #   sectioning headings
+        #   figure and table captions
+
+        sed -n '
+            s/[{}]//g
+            s/\\section/  /p
+            s/\\title/ /p
+            s/\\subsection/      /p
+            s/\\subsubsection/          /p
+            /\\beginfigure/,/\\endfigure/{
+              s/ *\\caption/            (Fig) /p
+            }
+            /\\begintable/,/\\endtable/{
+              s/ *\\caption/            (Tab) /p
+            }
+            ' $file
+        ;;
+    F | f | f90 | f95 | f77 | F77)
+        # Fortran source codes:
+        # Print
+        #   openning and closing of programs and modules;
+        #   openning of functions, subroutines, including thoese contained
+        #   structural keywords: use, contains
+
+        objname='[a-zA-Z][a-zA-Z0-9_]*'
+        str1="^ *(elemental )? *(real |double |integer |logical )? *(subroutine|function)  *${objname}"
+            # For functions and subroutines, print openning, omit closing.
+        str2="^ *(end )? *(program|module)"
+            # For programs and modules, print both openning and closing.
+        str3='^ *use '
+        str4='^ *contains *'
+        str5="^ *public  *${objname}"
+        str6='^ *include '
+        egrep -i "($str1)|($str2)|($str3)|($str4)|($str5)|($str6)" $file
+        ;;
+    c | C | cc | CC)
+        # C or C++ programs:
+        egrep -i '^[a-zA-Z][^;=]*$' $file
+        ;;
+    R | r)
+        # For R scripts:
+        #
+        # I require the new function name to start at the beginning
+        # of a new line; this eliminates functions defined within
+        # functions for local, temporary uses.
+        #
+        # The use of '=' for function definition, i.e.
+        #   fname = function(...),
+        # is not fully accommodated.
+        # There can be confusing situations with this operator that
+        # occurs in function calls that pass a function defined on the fly
+        # to be used as an argument.
+        objname='[a-zA-Z_.][a-zA-Z0-9_.]*'
+        sed -n "
+            s/^\(${objname}\) *<- *function[ (].*$/  \1 <- function(...)/p
+            s/^\(${objname}\) *= *function[ (].*$/  \1 <- function(...)/p
+            s/^\(${objname}\) *<- *function[ ]*$/  \1 <- function(...)/p
+            s/^\(${objname}\) *= *function[ ]*$/  \1 <- function(...)/p
+            /^${objname} *<- *$/{
+                $!N
+                s/ *\n//
+                s/^\(${objname}\) *<- *function[ (].*$/  \1 <- function(...)/p
+                s/^\(${objname}\) *<- *function[ ]*$/  \1 <- function(...)/p
+            }
+            " $file
+        ;;
+    bib)
+        awk "$BIBAWK" $file
+        ;;
+    *)
+        echo "I cannot determine the type of the document. I do it by its suffix."
+        exit 1
+        ;;
+    esac
+done
+
+exit 0

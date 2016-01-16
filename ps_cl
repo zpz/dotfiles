@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Does a ps command and greps for the input string and
+# cleans the output of "ps_cl" or "grep" lines
+
+ps aux | grep $1 | egrep -v 'grep|ps_cl|ps aux'
