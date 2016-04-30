@@ -1,3 +1,5 @@
+# This makefile is outdated.
+#
 INSTALL = install -bp -m u=rw,g=r,o=r
 UNINSTALL = rm -f
 SHELL = bash

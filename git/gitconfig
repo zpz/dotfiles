@@ -1,0 +1,10 @@
+[alias]
+    utccommit = !git commit --date=\"$(date -u +%Y-%m-%dT%H:%M:%S%z)\"
+    s = !git status -sb
+    b = !git branch -a
+    bb = !git rev-list --left-right --count $1...$2
+    lg = !git log --color --graph --abbrev-commit --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    # to view the latest 10 commits, do 'git lg -n10'
+    # to view changed lines, do 'git lg -p'
+[push]
+    default = simple
