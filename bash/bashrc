@@ -17,7 +17,24 @@ alias mv='mv -i'
 
 # export EDITOR=vim
 
-# command prompt
+# Use function instead of alias if you want to make it available in subshells (scripts).
+# For example:
+#
+# docker() {
+#     command sudo /usr/bin/docker "$@"
+# }
+# export -f docker
+#
+# The following will not be available in subshells:
+#
+# alias docker='sudo /usr/bin/docker'
+#
+# that is, if a script uses 'docker ...'
+# the 'docker' refers to '/usr/bin/docker', not this aliased 'docker'.
+# (Unless you 'source' the script, which does not create a subshell.)
+
+
+# Customize command prompt. This is a big section---
 
 function git_branch {
     # -- Finds and outputs the current branch name.
@@ -96,4 +113,6 @@ PS1="${WINDOWTITLE}\n\u@$(host_prompt) in ${BLUE}\w${S}\$(git_prompt)\n\$ "
   # user-name@host-name in current-directory [branch] new-line
   # $
 # export PS1="\033]0;$(uname -n):  ${PWD} \007\n\W$ "
+
+#--- end of command prompt customization ---
 
