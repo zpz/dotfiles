@@ -27,7 +27,11 @@ function git_branch {
         ff="$path/.git/HEAD"
         if [[ -f "$ff" ]]; then
             line=$(cat "$ff")
-            echo -e $(expr "$line" : '.*\/\([a-zA-Z0-9_-]*\)')
+            if [[ "$line" == *'/'* ]]; then
+                echo -e $(expr "$line" : '.*\/\([a-zA-Z0-9_-]*\)')
+            else
+                echo -e "$line"
+            fi
             break
         fi
         if [[ "$path" = "/" ]]; then
