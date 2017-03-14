@@ -82,8 +82,8 @@ if has("autocmd")
 
   filetype plugin indent on
     " load indentation rules and plugins according to the detected filetype.
-    " The python indentation file that lives at ~/.vim/indent/python.vim gets loaded every time 
-    " I open a *.py file.
+    " The indentation file that lives in ~/.vim/indent/ gets loaded every time 
+    " a file of a recognized type is opened.
 
   autocmd FileType make setlocal noexpandtab
     " turn off expandtab for editting makefiles
@@ -91,6 +91,10 @@ if has("autocmd")
     " (line continuation does not work.)
   autocmd FileType py set smartindent
   autocmd FileType py set textwidth=79
+  autocmd FileType pyx set smartindent
+  autocmd FileType pyx set textwidth=79
+  autocmd FileType pxd set smartindent
+  autocmd FileType pxd set textwidth=79
 
   " Turn on spell checker while editing files of specified types.
   autocmd BufNewFile,BufRead *.txt,*.tex,*.md,README,readme set spell
