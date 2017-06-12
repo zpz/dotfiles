@@ -9,3 +9,8 @@
 
 5. Use `vim` to edit something (e.g. Python code) to confirm that auto completion is working.
 
+(The main reason for doing the source compilation above is to enable `lua` support
+so that the plugin `neocomplete` can be used.
+It seems the package `vim-nox` might achieve this effect w/o the trouble of source compilation.
+To be investigated later.)
+
