@@ -1,0 +1,11 @@
+1. Run `install_vim.sh`.
+
+2. Run `vim --version` to check things, especially `+lua` should appear.
+
+3. Place `vimrc` in user home directory as `.vimrc`.  Place the content of `./vim` into `~/.vim/`.
+   (A system location for config is `/usr/local/share/vim`; to be investigated later.)
+
+4. Launch `vim`, run command `:PluginInstall`.
+
+5. Use `vim` to edit something (e.g. Python code) to confirm that auto completion is working.
+
