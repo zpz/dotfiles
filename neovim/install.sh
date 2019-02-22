@@ -8,18 +8,15 @@
 # This script installs things locally for the current user.
 # Otherwise some trouble-some `sudo` on/off switches are needed in the script.
 
-# This script installs `nvim` for the current user only.
-# `sudo nvim` would not find `nvim`.
-
 # If the installed `nvim` is not working properly,
 # check the paths in the installed `init.vim` and `plugins.vim` files.
 # Also check that the installed `nvim` command is on the system path.
 # Another useful thing to check is: launch `nvim`, and type
 #  : echo &rtp
 
-# As of Feb 2019, on Mac `brew install neovim` installs version 0.3.4
-# and gets 'segmentation fault 11' error.
-# There is workaround; but I'm waiting for this issue to be solved.
+# In particular, check and make sure the Python path in `dotfiles/init.vim`
+# at the top is correct.
+
 
 thisfile="$0"
 thisdir="$( cd $( dirname ${thisfile} ) && pwd )"

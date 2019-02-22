@@ -1,3 +1,6 @@
+# On Linux, put this file in `/etc/` and rename it to `bash.bashrc`.
+# On Mac, put this file in `/etc/` (and don't change the name).
+
 # If not running iteractively, don't do anything
 [[ -z "$PS1" ]] && return
 

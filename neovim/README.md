@@ -7,6 +7,9 @@
 
 1. Run script [install.sh](./install.sh)
 
+   Before running this script, you may want to check and make sure the Python path at the top of the file
+   [dotfiles/init.vim](./dotfiles/init.vim) is correct.
+   
 2. Launch `nvim`. There should be no welcome intro screen (which is turned off in our config) or any warning.
    In 'command' mode, type `:CheckHealth`; verify things are all right.
 
