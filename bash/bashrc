@@ -15,16 +15,20 @@ if [ "$(uname)" == "Darwin" ]; then
     alias ls='ls -FGh'
     alias ll='ls -lAG'
     alias dir='ls -algG'
+    export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 elif [ "$(uname)" == "Linux" ]; then
     alias ls='ls -FGh --color'
     alias ll='ls -lA --color'
     alias dir='ls -alg --color'
+    export LS_COLORS=$LS_COLORS:'di=0;36:'
 fi
 alias cp='cp -i'
 alias rm='rm -i'
 alias mv='mv -i'
 alias grep='grep --color'
 
+# For customizing color of `ls`, refer to this page:
+# https://askubuntu.com/questions/466198/how-do-i-change-the-color-for-directories-with-ls-in-the-console
 
 # Customize command prompt. This is a big section---
 
@@ -100,7 +104,7 @@ LIGHTYELLOW="${B}0;33${E}"
 #export PS1='[\u: \w] $ '
 
 WINDOWTITLE="\[\e]2;$(if [[ -n "$IMAGE_NAME" ]]; then echo "[ $IMAGE_NAME ]  "; fi)\W\a\]"
-PS1="${WINDOWTITLE}\n\u@$(host_prompt) in ${BLUE}\w${S}\$(git_prompt)\n\$ "
+PS1="${WINDOWTITLE}\n\u@$(host_prompt) in ${ORANGE}\w${S}\$(git_prompt)\n\$ "
   # window-title new-line
   # user-name@host-name in current-directory [branch] new-line
   # $
