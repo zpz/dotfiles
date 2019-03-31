@@ -104,7 +104,11 @@ LIGHTYELLOW="${B}0;33${E}"
 #export PS1='[\u: \w] $ '
 
 WINDOWTITLE="\[\e]2;$(if [[ -n "$IMAGE_NAME" ]]; then echo "[ $IMAGE_NAME ]  "; fi)\W\a\]"
-PS1="${WINDOWTITLE}\n\u@$(host_prompt) in ${ORANGE}\w${S}\$(git_prompt)\n\$ "
+if [ $(whoami) = root ]; then
+    PS1="${WINDOWTITLE}\n${RED}\u${S}@$(host_prompt) in ${ORANGE}\w${S}\$(git_prompt)\n\$ "
+else
+    PS1="${WINDOWTITLE}\n\u@$(host_prompt) in ${ORANGE}\w${S}\$(git_prompt)\n\$ "
+fi
   # window-title new-line
   # user-name@host-name in current-directory [branch] new-line
   # $
