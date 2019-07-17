@@ -12,14 +12,14 @@ shopt -s checkwinsize
 alias ..='cd ..'
 alias back='cd -'
 if [ "$(uname)" == "Darwin" ]; then
-    alias ls='ls -FGh'
-    alias ll='ls -lAG'
-    alias dir='ls -algG'
+    alias ls='ls -Fh'
+    alias ll='ls -lA'
+    alias dir='ls -alg'
     export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 elif [ "$(uname)" == "Linux" ]; then
-    alias ls='ls -FGh --color'
+    alias ls='ls -Fh --color'
     alias ll='ls -lA --color'
-    alias dir='ls -alg --color'
+    alias dir='ls -al --color'
     export LS_COLORS=$LS_COLORS:'di=0;36:'
 fi
 alias cp='cp -i'
