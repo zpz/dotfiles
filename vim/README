@@ -1,16 +1,32 @@
-1. Run `install_vim.sh`.
+1. Completely remove any existing installation of `vim`, such as by
 
-2. Run `vim --version` to check things, especially `+lua` should appear.
+   ```
+   $ sudo apt-get purge --auto-remove -y vim vim-runtime vim-gnome vim-tiny vim-gui-common vim-common
+   $ sudo apt-get autoremove -y
+   $ sudo rm -rf /usr/local/share/vim /usr/local/bin/vim /usr/bin/vim
+   ```
 
-3. Place `vimrc` in user home directory as `.vimrc`.  Place the content of `./vim` into `~/.vim/`.
+2. Install `vim` package with `lua` support by
+
+   ```
+   $ sudo apt-get install vim-nox
+   ```
+
+3. Run `vim --version` to check things, especially `+lua` should appear.
+
+4. Install [Vundle](https://github.com/VundleVim/Vundle.vim) into `~/.vim/bundle/`.
+
+5. Place `vimrc` in user home directory as `.vimrc`.  Place the content of `vim/` into `~/.vim/`.
    (A system location for config is `/usr/local/share/vim`; to be investigated later.)
 
-4. Launch `vim`, run command `:PluginInstall`.
+6. Launch `vim`, run command `:PluginInstall`.
 
-5. Use `vim` to edit something (e.g. Python code) to confirm that auto completion is working.
+7. Install Python package `pynvim`: `pip3 install pynvim`.
 
-(The main reason for doing the source compilation above is to enable `lua` support
-so that the plugin `neocomplete` can be used.
-It seems the package `vim-nox` might achieve this effect w/o the trouble of source compilation.
-To be investigated later.)
+8. Use `vim` to edit something (e.g. Python code) to confirm that auto completion is working.
+   The autocompletion is not restricted to language "keywords", package names or other special
+   things relevant to programming. It works for repeat typing of arbitrary strings that have appeard in the document.
+
+
+I verified on Feb 12, 2022 that this works. These materials are kept for reference as I have switched to `Neovim`.
 
