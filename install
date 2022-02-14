@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+if [ -z ${HOME+x} ]; then
+    >&2 echo "HOME is unset"
+    exit 1
+fi
+mkdir -p "${HOME}/.config"
+
+THISDIR=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
+
+
+ln -si "${THISDIR}/git/gitconfig" "${HOME}/.gitconfig"
+
+if [ -L "${HOME}/.config/nvim" ]; then
+    rm -f "${HOME}/.config/nvim"
+fi
+ln -s "${THISDIR}/neovim/config/nvim" "${HOME}/.config/nvim"
+
+if [ -L "${HOME}/.vim" ]; then
+    rm -f "${HOME}/.vim"
+fi
+ln -s "${THISDIR}/vim/vim" "${HOME}/.vim"
+ln -si "${THISDIR}/vim/vimrc" "${HOME}/.vimrc"
+

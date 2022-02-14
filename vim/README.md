@@ -14,10 +14,14 @@
 
 3. Run `vim --version` to check things, especially `+lua` should appear.
 
-4. Install [Vundle](https://github.com/VundleVim/Vundle.vim) into `~/.vim/bundle/`.
+4. Clone [Vundle](https://github.com/VundleVim/Vundle.vim) code into `~/.local/share/vim/bundle/`
+   (note this is different from the instructions in the Vundle repo):
 
-5. Place `vimrc` in user home directory as `.vimrc`.  Place the content of `vim/` into `~/.vim/`.
-   (A system location for config is `/usr/local/share/vim`; to be investigated later.)
+   ```
+   $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.local/share/vim/bundle/Vundle.vim
+   ```
+
+5. Link `vimrc` to `~/.vimrc` and `vim/vim` to `~/.vim` (see `install`).
 
 6. Launch `vim`, run command `:PluginInstall`.
 

@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+THISDIR=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
+
+if [ "$(uname)" == "Darwin" ]; then
+    ln -si "${THISDIR}/bash/bashrc" /etc/bashrc
+elif [ "$(uname)" == "Linux" ]; then
+    ln -si "${THISDIR}/bash/bashrc" /etc/bash.bashrc
+fi

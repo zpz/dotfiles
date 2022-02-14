@@ -1,6 +1,6 @@
 filetype off                  " required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set rtp+=~/.local/share/vim/bundle/Vundle.vim
+call vundle#begin("~/.local/share/vim/bundle")
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'

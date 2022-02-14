@@ -1,8 +1,4 @@
-# Configure bash shell
-
-On Linux, put [bashrc](./bashrc) in `/etc/` and rename it to `bash.bashrc`.
-
-On Mac, put [bashrc](./bashrc) in `/etc/` (and don't change the name).
+Because `~/.bashrc` is sometimes edited by applications behind the user's back, it is better to install the `bashrc` here into a system location, so to prevent accidental edits and to affect all users. Please see `sudo_install` for details.
 
 The color settings work well in a **dark** terminal window.
 
