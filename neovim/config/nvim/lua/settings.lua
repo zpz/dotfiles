@@ -15,6 +15,7 @@ local opt = vim.opt         		-- Set options (global/buffer/windows-scoped)
 -- General
 -----------------------------------------------------------
 -- Change leader
+-- Default leader key is backslash, '\'
 g.mapleader = ','
 g.maplocalleader = ','
 
@@ -150,7 +151,7 @@ local default_opts = { noremap = true, silent = true }
 
 -- Map leader key
 --map('', '<Space>', '<Nop>', default_opts)
-map('', ',', '<Nop>', default_opts)
+--map('', ',', '<Nop>', default_opts)
 
 -- Clear search highlighting with <leader> and c
 map('n', '<leader>c', ':nohl<CR>', default_opts)
@@ -171,17 +172,3 @@ map('n', '<C-l>', '<C-w>l', default_opts)
 -- Close all windows and exit from Neovim with <leader> and q
 map('n', '<leader>q', ':qa!<CR>', default_opts)
 
------------------------------------------------------------
--- Applications and Plugins shortcuts
------------------------------------------------------------
-
--- Open terminal
-map('n', '<C-t>', ':Term<CR>', { noremap = true })
-
--- nvim-tree
-map('n', '<C-n>', ':NvimTreeToggle<CR>', default_opts)       -- open/close
-map('n', '<leader>r', ':NvimTreeRefresh<CR>', default_opts)  -- refresh
-map('n', '<leader>n', ':NvimTreeFindFile<CR>', default_opts) -- search file
-
--- Vista tag-viewer
-map('n', '<C-m>', ':Vista!!<CR>', default_opts) -- open/close

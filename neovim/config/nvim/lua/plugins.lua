@@ -4,7 +4,6 @@ cmd [[packadd packer.nvim]]
 
 
 function get_setup(name)
-  --return string.format('require("setup/%s")', name)
   return require("setup/" .. name)
 end
 
@@ -13,7 +12,7 @@ end
 local packer = require 'packer'
 
 -- Add packages
-packer.startup(function()
+packer.startup(function(use)
   use 'wbthomason/packer.nvim' -- packer can manage itself
 
   use 'b3nj5m1n/kommentary'
@@ -21,7 +20,11 @@ packer.startup(function()
 
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
+    requires = {
+        'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim',
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+        'nvim-telescope/telescope-file-browser.nvim',
+    },
     config = get_setup('telescope'),
   }
 
