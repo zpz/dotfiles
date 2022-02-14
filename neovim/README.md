@@ -10,7 +10,7 @@ I want to find a nice and small setup. This will evolve as I learn and experimen
 1. Install Neomvim in one of the "official" ways w/o any customization or configuration.
    On Linux, I would download `nvim.appimage` and place it in `~/.local/bin/`.
 
-2. Clone this repo, make the root directory `~/.config/nvim/`, that is, the file `init.lua` in this repo becomes `~/.config/nvim/init.lua`.
+2. Link `config/nvim` to `~/.config/nvim` (see `install`).
 
 3. Start Neovim, do `:PackerInstall`.
 
