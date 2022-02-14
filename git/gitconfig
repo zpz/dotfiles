@@ -8,3 +8,6 @@
     # to view changed lines, do 'git lg -p'
 [push]
     default = simple
+[user]
+	email = zepu.zhang@gmail.com
+	name = zpz
