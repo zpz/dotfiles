@@ -15,9 +15,6 @@ require('telescope').setup {
           override_file_sorter= true,
           case_mode = 'smart_case',
       },
-      file_browser = {
-          theme = 'ivy',
-      },
   }
 }
 
@@ -26,28 +23,38 @@ require('telescope').load_extension('fzf')
 require('telescope').load_extension('file_browser')
 
 local map = function(key, func)
-    vim.api.nvim_set_keymap('n', '<leader>' .. key, func, { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', key, func, { noremap = true, silent = true })
 end
 
---Add leader shortcuts
--- buffers
-map('<space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
-map('b', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
+-- find buffer
+map('fb', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 
--- files in current and sub directories
-map('f', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]])
+-- find file (in current and sub directories)
+map('ff', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]])
 
--- files in current git "project"
-map('p', [[<cmd>lua require('telescope.builtin').git_files()<CR>]])
+-- find file in project (under git root)
+map('fp', [[<cmd>lua require('telescope.builtin').git_files()<CR>]])
 
---map('fb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
-map('sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
-map('st', [[<cmd>lua require('telescope.builtin').tags()<CR>]])
-map('sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]])
-map('sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
-map('so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]])
-map('?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+-- find old file (previously opened files
+map('fo', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 
 -- file "explorer"
-map('e', ":Telescope file_browser<CR>")
+map('fe', ":Telescope file_browser<CR>")
+
+-- grep buffer: search in current buffer
+map('gb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
+
+-- grep file: search in files in current and sub directories
+map('gf', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
+
+-- search buffer: search the current word in current buffer
+-- not working
+
+-- search file: search the current word in files in current and sub directories
+map('sf', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]])
+
+--map('sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
+--map('st', [[<cmd>lua require('telescope.builtin').tags()<CR>]])
+--map('so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]])
+
 

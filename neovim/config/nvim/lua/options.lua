@@ -14,10 +14,6 @@ local opt = vim.opt         		-- Set options (global/buffer/windows-scoped)
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
--- Change leader
--- Default leader key is backslash, '\'
-g.mapleader = ','
-g.maplocalleader = ','
 
 opt.clipboard = 'unnamedplus'   -- Copy/paste to system clipboard
 opt.swapfile = false            -- Don't use swapfile
@@ -135,40 +131,3 @@ local disabled_built_ins = {
 for _, plugin in pairs(disabled_built_ins) do
     g["loaded_" .. plugin] = 1
 end
-
-
-
------------------------------------------------------------
--- Keymaps of Neovim
------------------------------------------------------------
-
-local map = vim.api.nvim_set_keymap
-local default_opts = { noremap = true, silent = true }
-
------------------------------------------------------------
--- Neovim shortcuts
------------------------------------------------------------
-
--- Map leader key
---map('', '<Space>', '<Nop>', default_opts)
---map('', ',', '<Nop>', default_opts)
-
--- Clear search highlighting with <leader> and c
-map('n', '<leader>c', ':nohl<CR>', default_opts)
-
--- Map Esc to kk
--- map('i', 'kk', '<Esc>', {noremap = true})
-
--- Fast saving with <leader> and s
-map('n', '<leader>s', ':w<CR>', default_opts)
-map('i', '<leader>s', '<C-c>:w<CR>', default_opts)
-
--- Move around splits using Ctrl + {h,j,k,l}
-map('n', '<C-h>', '<C-w>h', default_opts)
-map('n', '<C-j>', '<C-w>j', default_opts)
-map('n', '<C-k>', '<C-w>k', default_opts)
-map('n', '<C-l>', '<C-w>l', default_opts)
-
--- Close all windows and exit from Neovim with <leader> and q
-map('n', '<leader>q', ':qa!<CR>', default_opts)
-
