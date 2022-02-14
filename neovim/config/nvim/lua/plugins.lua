@@ -3,12 +3,6 @@ local cmd = vim.cmd
 cmd [[packadd packer.nvim]]
 
 
-function get_setup(name)
-  return require("setup/" .. name)
-end
-
-
-
 local packer = require 'packer'
 
 -- Add packages
@@ -25,13 +19,11 @@ packer.startup(function(use)
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         'nvim-telescope/telescope-file-browser.nvim',
     },
-    config = get_setup('telescope'),
   }
 
   -- Add indentation guides even on blank lines
   use {
     'lukas-reineke/indent-blankline.nvim',
-    config = get_setup('indent-blankline'),
   }
 
   -- Autopair
@@ -43,7 +35,6 @@ packer.startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     requires = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    config = get_setup('nvim-treesitter'),
   }
 
   -- Color schemes
@@ -51,7 +42,6 @@ packer.startup(function(use)
 
   use {
     'neovim/nvim-lspconfig',
-    config = get_setup('nvim-lspconfig'),
   }
 
   use {
@@ -63,21 +53,26 @@ packer.startup(function(use)
       'hrsh7th/cmp-buffer',
       'saadparwaiz1/cmp_luasnip',
     },
-    config = get_setup('nvim-cmp'),
   }
 
   -- Status line
   use {
     'nvim-lualine/lualine.nvim',
-    config = get_setup('lualine'),
   }
 
   -- Add git related info in the signs columns and popups
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
-    config = get_setup('gitsigns'),
   }
 
 end)
+
+require('setup/telescope')
+require('setup/indent-blankline')
+require('setup/nvim-treesitter')
+require('setup/nvim-lspconfig')
+require('setup/nvim-cmp')
+require('setup/lualine')
+require('setup/gitsigns')
 
