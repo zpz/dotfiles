@@ -3,6 +3,8 @@ require('telescope').setup {
   defaults = {
     file_ignore_patterns = {
         "__pycache__",
+        "%.ipynb",
+        "archive/*",
     },
     mappings = {
       i = {
