@@ -39,6 +39,8 @@ packer.startup(function(use)
 
   -- Color schemes
   use 'junegunn/seoul256.vim'
+  use 'morhetz/gruvbox'
+  use 'tomasr/molokai'
 
   use {
     'neovim/nvim-lspconfig',

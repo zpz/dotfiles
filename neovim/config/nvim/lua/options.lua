@@ -57,10 +57,23 @@ opt.synmaxcol = 240             -- Max column for syntax highlight
 
 -----------------------------------------------------------
 -- Colorscheme
+-- Important factors to consider while assessing a colorscheme:
+--    - don't be too contrasty
+--    - number column and comments should be readable
+-- Decent ones include:
+--  builtin: desert, evening, ron
+--  3p: gruvbox, seoul256
 -----------------------------------------------------------
 opt.termguicolors = true        -- Enable 24-bit RGB colors
 g.seoul256_background = 234
 cmd [[colorscheme seoul256]]
+
+--g.gruvbox_contrast_dark = 'hard'
+--cmd [[colorscheme gruvbox]]
+
+--cmd [[colorscheme molokai]]
+--vim.cmd[[au VimEnter * highlight LineNr guifg=#a89984]]
+
 
 -----------------------------------------------------------
 -- Tabs, indent
