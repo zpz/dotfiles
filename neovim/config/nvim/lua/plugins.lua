@@ -60,6 +60,7 @@ packer.startup(function(use)
   -- Status line
   use {
     'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
   }
 
   -- Add git related info in the signs columns and popups
