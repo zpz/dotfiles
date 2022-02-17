@@ -1,6 +1,12 @@
 -- Telescope
 require('telescope').setup {
   defaults = {
+    layout_strategy = 'flex',
+    layout_config = {
+        width = 0.9,
+        height = 0.9,
+        preview_cutoff = 1,
+    },
     file_ignore_patterns = {
         "__pycache__",
         "%.ipynb",
