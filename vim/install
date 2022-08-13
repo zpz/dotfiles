@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if [ -z ${HOME+x} ]; then
+    >&2 echo "HOME is unset"
+    exit 1
+fi
+
+THISDIR=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
+
+# Remember to backup the existing config if you want to.
+
+if [ -L "${HOME}/.vim" ]; then
+    rm -f "${HOME}/.vim"
+fi
+ln -s "${THISDIR}/vim" "${HOME}/.vim"
+ln -si "${THISDIR}/vimrc" "${HOME}/.vimrc"
+

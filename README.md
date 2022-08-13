@@ -10,7 +10,15 @@ I'm using homegrown shell scripts for now.
 
 See `install` and `sudo_install`.
 
-Some other default settings that I have found to be good:
 
-    - For terminal window font, use 'cursor 18'
+## Terminal
 
+To control the position of Terminal at startup, edit its ".desktop" file.
+In my LinuxMint 21, it is `/usr/share/applications/org.gnome.Terminal.desktop`.
+Edit the `Exec` line of this text file:
+
+```
+Exec=gnome-terminal --geometry columnsxrows+x+y
+```
+
+I settled at 88x28+20+220, which is roughly the lower-left corner.

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ -z ${HOME+x} ]; then
+    >&2 echo "HOME is unset"
+    exit 1
+fi
+mkdir -p "${HOME}/.config"
+
+THISDIR=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
+
+# Remember to backup the existing config if you want to.
+
+if [ -L "${HOME}/.config/nvim" ]; then
+    rm -f "${HOME}/.config/nvim"
+fi
+ln -s "${THISDIR}/config/nvim" "${HOME}/.config/nvim"

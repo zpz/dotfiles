@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -z ${HOME+x} ]; then
+    >&2 echo "HOME is unset"
+    exit 1
+fi
+
+THISDIR=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
+
+ln -si "${THISDIR}/gitconfig" "${HOME}/.gitconfig"

@@ -2,8 +2,10 @@
 
 THISDIR=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
 
+# Remember to backup existing config files.
+
 if [ "$(uname)" == "Darwin" ]; then
-    ln -si "${THISDIR}/bash/bashrc" /etc/bashrc
+    sudo ln -si "${THISDIR}/bashrc" /etc/bashrc
 elif [ "$(uname)" == "Linux" ]; then
-    ln -si "${THISDIR}/bash/bashrc" /etc/bash.bashrc
+    sudo ln -si "${THISDIR}/bashrc" /etc/bash.bashrc
 fi
