@@ -2,3 +2,4 @@ Because `~/.bashrc` is sometimes edited by applications behind the user's back, 
 
 The color settings work well in a **dark** terminal window.
 
+If there is a system default `~/.bashrc`, you may want to backup and remove it after running `sudo_install`. Create a new, empty `~/.bashrc`, and enrich it as needed.

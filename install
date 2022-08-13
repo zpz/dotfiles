@@ -16,9 +16,9 @@ if [ -L "${HOME}/.config/nvim" ]; then
 fi
 ln -s "${THISDIR}/neovim/config/nvim" "${HOME}/.config/nvim"
 
-if [ -L "${HOME}/.vim" ]; then
-    rm -f "${HOME}/.vim"
-fi
-ln -s "${THISDIR}/vim/vim" "${HOME}/.vim"
-ln -si "${THISDIR}/vim/vimrc" "${HOME}/.vimrc"
+# if [ -L "${HOME}/.vim" ]; then
+#     rm -f "${HOME}/.vim"
+# fi
+# ln -s "${THISDIR}/vim/vim" "${HOME}/.vim"
+# ln -si "${THISDIR}/vim/vimrc" "${HOME}/.vimrc"
 
