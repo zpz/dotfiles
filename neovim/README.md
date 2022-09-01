@@ -47,7 +47,7 @@ I want to find a nice and small setup. This will evolve as I learn and experimen
    sudo apt-get install --no-install-recommends npm
    sudo npm install -g pyright
    ```
- 
+
    Initially, Python support did not work. After a brief struggle, some message reminded me that my NodeJS version was too low. After an upgrade to Node, things worked.
 
 6. Enable LSP suport for Lua. Although I have no plan to write Lua code, I need to edit the config file `init.lua` from time to time. The error message at every startup is annoying. So I decided to enable Lua language server.
@@ -62,3 +62,5 @@ I want to find a nice and small setup. This will evolve as I learn and experimen
    ```
 
 8. On Mac, the default `Terminal` app messes with colorschemes. If it's an issue to you, choose an alternative terminal app, such as `Alacritty`.
+
+With NeoVim, the "regular" Vim is not needed. But in some situations a minimal Vi will be handy. If somehow that is missing, install `vim.tiny`. You may want to set `EDITOR=vi` or `EDITOR=nvim` in `~/.bashrc`.
