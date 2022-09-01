@@ -8,8 +8,6 @@ There are some tools for "dotfile management".
 and [Dotbot](https://github.com/anishathalye/dotbot) are two popular ones worth consideration.
 I'm using homegrown shell scripts for now.
 
-See `install` and `sudo_install`.
-
 
 ## Terminal
 
