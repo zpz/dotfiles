@@ -9,14 +9,25 @@ and [Dotbot](https://github.com/anishathalye/dotbot) are two popular ones worth 
 I'm using homegrown shell scripts for now.
 
 
-## Terminal
+## Setting up a new computer
 
-To control the position of Terminal at startup, edit its ".desktop" file.
-In my LinuxMint 21, it is `/usr/share/applications/org.gnome.Terminal.desktop`.
-Edit the `Exec` line of this text file:
+On a new computer (or OS) for my exclusive use, I usually need to set up these things:
 
-```
-Exec=gnome-terminal --geometry columnsxrows+x+y
-```
+- `.bashrc`
+- Terminal: size and location, font size, background etc.
 
-I settled at 88x28+20+220, which is roughly the lower-left corner.
+    To control the position of Terminal at startup, edit its ".desktop" file.
+    In my LinuxMint 21, it is `/usr/share/applications/org.gnome.Terminal.desktop`.
+    Edit the `Exec` line of this text file:
+
+    ```
+    Exec=gnome-terminal --geometry columnsxrows+x+y
+    ```
+
+    I settled at 88x28+20+220, which is roughly the lower-left corner.
+- Install and config `neovim`.
+- Install and config an IDE such as VS Code.
+- Install `git`. Verify `github` account.
+- Install `Docker`.
+- Create directory `~/work/src` for code work.
+- Other things are installed as needed. For example, Python's `pip` may not be there when I use it for the first time.
