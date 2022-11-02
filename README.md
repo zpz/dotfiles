@@ -13,7 +13,7 @@ I'm using homegrown shell scripts for now.
 
 On a new computer (or OS) for my exclusive use, I usually need to set up these things:
 
-- `.bashrc`
+- Config [`bash`](./bash).
 - Terminal: size and location, font size, background etc.
 
     To control the position of Terminal at startup, edit its ".desktop" file.
@@ -24,10 +24,10 @@ On a new computer (or OS) for my exclusive use, I usually need to set up these t
     Exec=gnome-terminal --geometry columnsxrows+x+y
     ```
 
-    I settled at 88x28+20+220, which is roughly the lower-left corner.
-- Install and config `neovim`.
+    I settled at 100x24+20+420, which is roughly the lower-left corner.
+- Install and config [`neovim`](./neovim).
 - Install and config an IDE such as VS Code.
-- Install `git`. Verify `github` account.
+- Install [`git`](./git). Verify `github` account.
 - Install `Docker`.
 - Create directory `~/work/src` for code work.
 - Other things are installed as needed. For example, Python's `pip` may not be there when I use it for the first time.

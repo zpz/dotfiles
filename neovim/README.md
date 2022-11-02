@@ -3,7 +3,7 @@
 I have been a "light" user of Vi and Vim for a long time. In 2019, I started using Neovim (version 0.4.x)
 as a "better Vim" without much tweaking. I added `deoplete` for auto completion and was happy.
 
-In early 2022, I revisited my Neomvim setup and found that Neovim had advanced a lot with the release of 0.5.0 in July 2021. So I started migrating from VSCode to Neovim. (VSCode drives me nuts with the Python extension "is loading"-please-wait-for-ever issue, which I don't have the energy to research.)
+In early 2022, I revisited my Neomvim setup and found that Neovim had advanced a lot with the release of 0.5.0 in July 2021.
 
 I want to find a nice and small setup. This will evolve as I learn and experiment.
 
@@ -62,5 +62,12 @@ I want to find a nice and small setup. This will evolve as I learn and experimen
    ```
 
 8. On Mac, the default `Terminal` app messes with colorschemes. If it's an issue to you, choose an alternative terminal app, such as `Alacritty`.
+
+9. Enable copying to the system clipboard so that the text can be pasted into other programs:
+
+   If using X11, install `xclip`. If using Wayland, install `wl-paste`. To tell whether I'm using X11 or Wayland, do `echo $XDG_SESSION_TYPE`.
+
+   After this, the "yank" command (`y`) in Neovim copies to the system clipboard.
+
 
 With NeoVim, the "regular" Vim is not needed. But in some situations a minimal Vi will be handy. If somehow that is missing, install `vim.tiny`. You may want to set `EDITOR=vi` or `EDITOR=nvim` in `~/.bashrc`.
