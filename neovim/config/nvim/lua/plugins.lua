@@ -21,11 +21,6 @@ packer.startup(function(use)
     },
   }
 
-  -- Add indentation guides even on blank lines
-  use {
-    'lukas-reineke/indent-blankline.nvim',
-  }
-
   -- Autopair
   use {
     'windwp/nvim-autopairs',
@@ -72,7 +67,6 @@ packer.startup(function(use)
 end)
 
 require('setup/telescope')
-require('setup/indent-blankline')
 require('setup/nvim-treesitter')
 require('setup/nvim-lspconfig')
 require('setup/nvim-cmp')

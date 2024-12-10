@@ -14,7 +14,7 @@ I want to find a nice and small setup. This will evolve as I learn and experimen
    chmod u+x ~/.local/bin/nvim.appimage
    ```
 
-   Then, add an alias in `~/.bashrc`, e.g. `nvim`, pointing to `~/.local/bin/nvim.appimage`.
+   Then, add a link to it as `/usr/local/bin/nvim`; then add a link `/usr/local/bin/vim` pointing to `nvim`.
 
 2. Install `packer.nvim`:
 
