@@ -11,3 +11,5 @@
 [user]
 	email = zepu.zhang@gmail.com
 	name = zpz
+[init]
+	defaultBranch = main
