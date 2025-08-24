@@ -13,5 +13,5 @@ elif [ "$(uname)" == "Linux" ]; then
 fi
 mv -f ~/.bashrc ~/.bashrc.backup
 touch ~/.bashrc
-mv -f ~/.bash_profile ~/.bash_profile.backup
+mv -f ~/.bash_profile ~/.bash_profile.backup || true
 cp ${THISDIR}/bash_profile ~/.bash_profile
