@@ -7,9 +7,11 @@ THISDIR=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
 if [ "$(uname)" == "Darwin" ]; then
     sudo mv /etc/bashrc /etc/bashrc.backup
     sudo ln -si "${THISDIR}/bashrc" /etc/bashrc
+    source /etc/bashrc
 elif [ "$(uname)" == "Linux" ]; then
     sudo mv /etc/bash.bashrc /etc/bash.bashrc.backup
     sudo ln -si "${THISDIR}/bashrc" /etc/bash.bashrc
+    source /etc/bash.bashrc
 fi
 mv -f ~/.bashrc ~/.bashrc.backup
 touch ~/.bashrc
