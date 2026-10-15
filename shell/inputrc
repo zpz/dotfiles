@@ -1,0 +1,15 @@
+# ==============================================================================
+# UNIVERSAL BASH TAB COMPLETION CAROUSEL (~/.inputrc)
+# ==============================================================================
+
+# 1. Make the Tab key cycle through matching file paths directly on your cursor line
+"\t": menu-complete
+
+# 2. Make Shift+Tab cycle backward through choices (highly recommended)
+"\e[Z": menu-complete-backward
+
+# 3. Force Bash to instantly print the text list of files on the first Tab hit, 
+# so you can see your options while you cycle through them.
+set show-all-if-ambiguous on
+set page-completions off
+

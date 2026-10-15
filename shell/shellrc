@@ -1,0 +1,125 @@
+# ==============================================================================
+# UNIVERSAL LIGHTWEIGHT RUNTIME INTERACTIVE CONFIG
+# ==============================================================================
+
+
+# Common basic configurations & aliases
+[[ -z "$PS1" ]] && return
+alias ..='cd ..'
+alias back='cd -'
+alias cp='cp -i'
+alias rm='rm -i'
+alias mv='mv -i'
+alias grep='grep --color'
+
+# Core environment definitions
+get_host_string() {
+    if [[ -n "$IMAGE_NAME" ]]; then echo "$IMAGE_NAME"; else echo "$(uname -n)"; fi
+}
+
+get_raw_branch_name() {
+    local current_dir="$PWD"
+    while [[ -n "$current_dir" ]]; do
+        if [[ -e "$current_dir/.git" ]]; then
+            local head_file="$current_dir/.git/HEAD"
+            if [[ -f "$current_dir/.git" ]]; then
+                local git_ref
+                read -r git_ref < "$current_dir/.git"
+                if [[ "$git_ref" =~ gitdir:[[:space:]]*(.*) ]]; then
+                    local target_dir="${BASH_REMATCH[1]:-${match[1]}}"
+                    if [[ "$target_dir" = /* ]]; then head_file="$target_dir/HEAD"; else head_file="$current_dir/.git/$target_dir/HEAD"; fi
+                fi
+            fi
+            if [[ -f "$head_file" ]]; then
+                local head_line
+                read -r head_line < "$head_file"
+                if [[ "$head_line" =~ ref:[[:space:]]*refs/heads/(.*) ]]; then
+                    # Dynamic Fallback: Use Bash array match, or Zsh string match
+                    if [[ -n "$BASH_VERSION" ]]; then
+                        echo "${BASH_REMATCH[1]}"
+                    else
+                        echo "${match[1]}"
+                    fi
+                    return 0
+                fi
+            fi
+        fi
+        if [[ "$current_dir" == *"/"* ]]; then
+            if [[ "$current_dir" == "/" ]]; then break; fi
+            current_dir="${current_dir%/*}"
+            [[ -z "$current_dir" ]] && current_dir="/"
+        else break; fi
+    done
+}
+
+# ==============================================================================
+# SHELL METADATA SPECIFIC LOADING PIPELINE
+# ==============================================================================
+
+if [[ -n "$ZSH_VERSION" ]]; then
+    # --------------------------------------------------------------------------
+    # ZSH TARGET ROUTINES
+    # --------------------------------------------------------------------------
+    if [[ "$(uname)" == "Darwin" ]]; then
+        alias ls='ls -Fh'; export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+    else
+        alias ls='ls -Fh --color'; export LS_COLORS=$LS_COLORS:'di=0;36:'
+    fi
+
+    autoload -Uz compinit && compinit -C
+    zstyle ':completion:*' menu select
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+    zmodload zsh/complist
+    bindkey -M menuselect '^M' .accept-line
+    
+    # setopt AUTO_CD CORRECT PROMPT_SUBST
+    setopt AUTO_CD PROMPT_SUBST
+
+    get_zsh_git_prompt() {
+        local br=$(get_raw_branch_name)
+        if [[ -n "$br" ]]; then
+            if [[ "$br" == 'master' || "$br" == 'main' || "$br" == release* || "$br" == RELEASE* ]]; then echo " %F{red}[ $br]%f"
+            elif [[ "$br" == 'develop' ]]; then echo " %F{yellow}[ $br]%f"
+            else echo " %F{green}[ $br]%f"; fi
+        fi
+    }
+    
+    get_window_title() { echo -ne "\e]2;${IMAGE_NAME:+$IMAGE_NAME  }${PWD:t}\a"; }
+    autoload -Uz add-zsh-hook && add-zsh-hook precmd get_window_title
+    
+    PROMPT='
+%n@$(get_host_string) in %F{yellow}%~%f$(get_zsh_git_prompt)
+❯ '
+
+elif [[ -n "$BASH_VERSION" ]]; then
+    # --------------------------------------------------------------------------
+    # BASH TARGET ROUTINES
+    # --------------------------------------------------------------------------
+    shopt -s checkwinsize
+    if [[ "$(uname)" == "Darwin" ]]; then
+        alias ls='ls -Fh'; export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+    else
+        alias ls='ls -Fh --color'; export LS_COLORS=$LS_COLORS:'di=0;36:'
+    fi
+
+    get_bash_git_prompt() {
+        UNIVERSAL_GIT_PROMPT=""
+        local br=$(get_raw_branch_name)
+        if [[ -n "$br" ]]; then
+            local color=""
+            if [[ "$br" == 'master' || "$br" == 'main' || "$br" == release* || "$br" == RELEASE* ]]; then color="\033[1;31m"
+            elif [[ "$br" == 'develop' ]]; then color="\033[1;33m"
+            else color="\033[1;32m"; fi
+            UNIVERSAL_GIT_PROMPT="\001$color\002[ $br]\001\033[0m\002"
+        fi
+    }
+
+    render_bash_prompt() {
+        get_bash_git_prompt
+        local title_prefix="${IMAGE_NAME:+[ $IMAGE_NAME ]  }"
+        local WINDOWTITLE="\001\e]2;${title_prefix}\W\a\002"
+        PS1="${WINDOWTITLE}\n\u@$(get_host_string) in \001\033[1;33m\002\w\001\033[0m\002$UNIVERSAL_GIT_PROMPT\n❯ "
+    }
+    PROMPT_COMMAND="render_bash_prompt"
+fi
+
