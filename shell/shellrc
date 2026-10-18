@@ -78,9 +78,9 @@ if [[ -n "$ZSH_VERSION" ]]; then
     get_zsh_git_prompt() {
         local br=$(get_raw_branch_name)
         if [[ -n "$br" ]]; then
-            if [[ "$br" == 'master' || "$br" == 'main' || "$br" == release* || "$br" == RELEASE* ]]; then echo " %F{red}[ $br]%f"
-            elif [[ "$br" == 'develop' ]]; then echo " %F{yellow}[ $br]%f"
-            else echo " %F{green}[ $br]%f"; fi
+            if [[ "$br" == 'master' || "$br" == 'main' || "$br" == release* || "$br" == RELEASE* ]]; then echo " %F{red}[$br]%f"
+            elif [[ "$br" == 'develop' ]]; then echo " %F{yellow}[$br]%f"
+            else echo " %F{green}[$br]%f"; fi
         fi
     }
     
