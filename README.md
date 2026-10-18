@@ -13,7 +13,7 @@ I'm using homegrown shell scripts for now.
 
 On a new computer (or OS) for my exclusive use, I usually need to set up these things:
 
-- Config [`bash`](./bash).
+- Config the shell [`bash`](./shell).
 - Terminal: size and location, font size, background etc.
 
     To control the position of Terminal at startup, edit its ".desktop" file.
